@@ -94,10 +94,10 @@ def test_local_ollama_cloud_suffix_disables_json_schema_output(ollama_api_key: s
 
 
 def test_local_ollama_colon_cloud_tag_disables_json_schema_output(ollama_api_key: str) -> None:
-    """Bare `:cloud` tagged models (e.g. ``glm-5.3:cloud``, ``kimi-k3:cloud``) used with a
-    local Ollama daemon are forwarded to Ollama Cloud, which does not enforce ``json_schema``
-    (see https://github.com/pydantic/pydantic-ai/issues/10032).  The capability downgrade
-    that applies to ``-cloud`` suffixed names must also apply to bare ``:cloud`` tags."""
+    """Bare `:cloud` tagged models (e.g. `glm-5.3:cloud`, `kimi-k3:cloud`) used with a
+    local Ollama daemon are forwarded to Ollama Cloud, which does not enforce `json_schema`
+    (see https://github.com/pydantic/pydantic-ai/issues/10032). The capability downgrade
+    that applies to `-cloud` suffixed names must also apply to bare `:cloud` tags."""
     provider = OllamaProvider(base_url=OLLAMA_LOCAL_BASE_URL, api_key=ollama_api_key)
     for model_name in ('glm-5.3:cloud', 'kimi-k3:cloud'):
         model = OllamaModel(model_name, provider=provider)
