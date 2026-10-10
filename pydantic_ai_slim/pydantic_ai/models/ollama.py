@@ -30,8 +30,8 @@ def _routes_to_ollama_cloud(provider: Provider[AsyncOpenAI], model_name: str) ->
 
     - The provider's `base_url` is on `ollama.com`, meaning the request goes directly
       to Ollama Cloud.
-    - The model name ends with the `-cloud` suffix, which a local Ollama daemon
-      forwards to the same upstream.
+    - The model name ends with the `-cloud` suffix or `:cloud` tag, which a local
+      Ollama daemon forwards to the same upstream.
 
     Ollama Cloud accepts `response_format` with `json_schema` without error but does
     not apply grammar-constrained decoding, so structured-output schemas are not
@@ -56,7 +56,7 @@ class OllamaModel(OpenAIChatModel):
     [pydantic-ai#4917](https://github.com/pydantic/pydantic-ai/issues/4917) and
     [ollama/ollama#12362](https://github.com/ollama/ollama/issues/12362)). When
     this model detects a Cloud path — either a `base_url` on `ollama.com` or a
-    model name ending in `-cloud` — it disables `supports_json_schema_output`
+    model name ending in `-cloud` or `:cloud` — it disables `supports_json_schema_output`
     on the resolved profile. With that flag off,
     [`NativeOutput`][pydantic_ai.output.NativeOutput] raises a clear
     [`UserError`][pydantic_ai.exceptions.UserError] so users pick a mode that
